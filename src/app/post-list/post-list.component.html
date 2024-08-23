@@ -72,92 +72,115 @@
           <div class="autoBLur">SEE MORE &#8599;</div>
       </section>
   </main>
-  <footer>
-      
-    <div class="container">
-      <hr>
-      <mat-divider class="my-3"></mat-divider>
-      <div class=" row mt-5" style="margin-top: 100px !important;">
-          <mat-divider class="my-3"></mat-divider>
-        
-        <span> <h1 class="most_text" style="justify-content: center;text-align: center;font-weight: 600px;"> <div>
-          <a href="">
-            Below You Can see Blog Posts
-          </a>
-        </div></h1></span>  
-      </div>
-      <div class="row">
-        <div>
-          <h1 class="most_text" style="font-weight: 900px;"> <a style="justify-content: center;" class="btn btn-primary" routerLink="/postform">Click Here to Add Post</a></h1>
-          
 
-        </div>
-        <mat-divider class="my-3"></mat-divider>
-        <div class="col-md-8">
-            <mat-accordion class="example-headers-align p-0  m-0" multi *ngFor="let post of filteredPosts$ | async" class="post-item fade-in">
-              <mat-expansion-panel style="margin-bottom: 10px;">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                      {{ post.title }}
-                  </mat-panel-title>
-                  <mat-panel-description style="justify-content: right;text-align: right;">
-                    
-                    <mat-icon>account_circle</mat-icon>
-                  </mat-panel-description>
-                  
-                </mat-expansion-panel-header>
-                <div >
-                  <mat-card class="post-card">
-                    <mat-card-header>
-                      <div mat-card-avatar class="avatar"></div>
-                      <mat-card-title>{{ post.title }}</mat-card-title>
-                      <mat-card-subtitle>{{ post.category }} | {{ post.date | date:'mediumDate' }}</mat-card-subtitle>
-                    </mat-card-header>
-                    <!-- Use dynamic image URL from the post object -->
-                    <img mat-card-image *ngIf="post.imageUrl" [src]="post.imageUrl" alt="{{ post.title }}" />
-                    <mat-card-content>
-                      <p>{{ post.content }}</p>
-                    </mat-card-content>
-                    <mat-card-actions>
-                      <button mat-button color="primary" (click)="editPost(post)">Edit</button>
-                      <button mat-button color="warn" (click)="deletePost(post.id)">Delete</button>
-                    </mat-card-actions>
-                  </mat-card>
-                </div>
-              </mat-expansion-panel>
-            </mat-accordion>
-            
-          
-        </div>
-    
-        <!-- Search and Filter -->
-        <div class="col-md-4">
-          <mat-card class="filter-card">
+ <!-- continer -->
+
+ <div class="container">
+  <hr>
+  <mat-divider class="my-3"></mat-divider>
+  <div class="row mt-5">
+    <mat-divider class="my-3"></mat-divider>
+    <div class="col-md-12 text-center">
+      <h1 class="most_text" style="font-weight: 600;">
+        <a href="">Below You Can See Blog Posts</a>
+      </h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      <h1 class="most_text text-center" style="font-weight: 900;">
+        <a class="btn btn-primary" routerLink="/postform">Click Here to Add Post</a>
+      </h1>
+      <mat-divider class="my-3"></mat-divider>
+      <mat-accordion class="example-headers-align p-0 m-0" multi *ngFor="let post of filteredPosts$ | async" class="post-item fade-in">
+        <mat-expansion-panel style="margin-bottom: 10px;">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{ post.title }}
+            </mat-panel-title>
+            <mat-panel-description style="text-align: right;">
+              <mat-icon>account_circle</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-card class="post-card">
             <mat-card-header>
-              <mat-card-title>Filters</mat-card-title>
+              <div mat-card-avatar class="avatar"></div>
+              <mat-card-title>{{ post.title }}</mat-card-title>
+              <mat-card-subtitle>{{ post.category }} | {{ post.date | date:'mediumDate' }}</mat-card-subtitle>
             </mat-card-header>
+            <img mat-card-image *ngIf="post.imageUrl" [src]="post.imageUrl" alt="{{ post.title }}" />
             <mat-card-content>
-              <!-- Search Filter -->
-              <mat-form-field class="full-width">
-                <mat-label>Search Posts</mat-label>
-                <input matInput placeholder="Search by title or content" [(ngModel)]="searchText" />
-              </mat-form-field>
-              <button mat-raised-button color="primary" class="full-width" (click)="applyFilters()">
-                Search
-              </button>
-    
-              <!-- Category Filter -->
-              <mat-divider class="my-3"></mat-divider>
-              <h5>Categories</h5>
-              <div *ngFor="let category of categories">
-                <mat-checkbox [(ngModel)]="selectedCategories[category]" (change)="applyFilters()">
-                  {{ category }}
-                </mat-checkbox>
-              </div>
+              <p>{{ post.content }}</p>
             </mat-card-content>
+            <mat-card-actions>
+              <button mat-button color="primary" (click)="editPost(post)">Edit</button>
+              <button mat-button color="warn" (click)="deletePost(post.id)">Delete</button>
+            </mat-card-actions>
           </mat-card>
-        </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+
+    <!-- Search and Filter -->
+    <div class="col-md-4">
+      <mat-card class="filter-card">
+        <mat-card-header>
+          <mat-card-title>Filters</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <!-- Search Filter -->
+          <mat-form-field class="full-width">
+            <mat-label>Search Posts</mat-label>
+            <input matInput placeholder="Search by title or content" [(ngModel)]="searchText" />
+          </mat-form-field>
+          <button mat-raised-button color="primary" class="full-width" (click)="applyFilters()">
+            Search
+          </button>
+
+          <!-- Category Filter -->
+          <mat-divider class="my-3"></mat-divider>
+          <h5>Categories</h5>
+          <div *ngFor="let category of categories">
+            <mat-checkbox [(ngModel)]="selectedCategories[category]" (change)="applyFilters()">
+              {{ category }}
+            </mat-checkbox>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h5>About Us</h5>
+        <p>We are a team dedicated to bringing you the latest and greatest blog posts on a variety of topics. Our mission is to provide high-quality content that informs, inspires, and entertains.</p>
+      </div>
+      <div class="footer-section">
+        <h5>Quick Links</h5>
+        <ul class="list-unstyled">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h5>Contact Us</h5>
+        <address>
+          <p>Email: <a href="mailto:info@example.com">infoxample.com</a></p>
+          <p>Phone: <a href="tel:+1234567890">+1 234 567 890</a></p>
+          <p>Address: 123 Main Street, Anytown, USA</p>
+        </address>
       </div>
     </div>
-  </footer>
+    <div class="footer-bottom text-center">
+      <p>&copy; 2024 YourWebsite. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
 </body>
