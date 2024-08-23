@@ -1,0 +1,163 @@
+<body>
+  
+  <main>
+      <header>
+          <img src="../assets/5.png" alt="">
+          <img src="../assets/6.png" alt="">
+      </header>
+      <section class="banner">
+          <div class="content">
+              <h1 class="left">Weclome </h1>
+              <div class="right">
+                  <h2> </h2>
+                  <p>Web Design</p>
+                  <p> Scroll Down
+                      <br>interesting update  </p>
+              </div>
+              <div class="image">
+                  <img src="../assets/mouth.png" alt="">
+              </div>
+          </div>
+      </section>
+
+
+      <section class="grid grid-1">
+          <figure>
+              <img src="../assets/sich.png" alt="">
+          </figure>
+          <figure>
+              <img src="../assets/3.png" alt="" class="autoRotate">
+          </figure>
+          <h2 class="autoShow">Introduce</h2>
+      </section>
+
+      <section class="grid grid-2">
+          <div class="autoShow">
+              <figure>
+                  <img src="../assets/swaraj.jpg" alt="swaraj">
+              </figure>
+              <p>
+                  When an unknown printer took a galley of type and scrambled it to make a type specimen b <br>
+                  only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop like.
+              </p>
+          </div>
+          <div class="autoShow">
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen b <br>
+              ook. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+              printer took a galley of type and scrambled it to make a type specimen b <br>
+              ook. It has survived not only five centuries, but also the leap into electronic typesetting, remai
+          </div>
+
+          <div class="autoShow">
+              <figure>
+                  <img src="../assets/2.png" alt="">
+              </figure>
+              <p>
+                  When an unknown printer took a galley of type and scrambled it to make a type specimen b <br>
+                  only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
+              </p>
+          </div>
+          <div class="autoShow">
+              <figure>
+                  <img src="../assets/candy.png" alt="">
+              </figure>
+          </div>
+      </section>
+
+      <section class="grid grid-3">
+          <div class="autoBLur">WRITE</div>
+          <div class="autoBLur">DESIGNER</div>
+          <div class="autoBLur">DEVELOP</div>
+          <div class="autoBLur">BLOGS +</div>
+          <div class="autoBLur">SEE MORE &#8599;</div>
+      </section>
+  </main>
+  <footer>
+      
+    <div class="container">
+      <hr>
+      <mat-divider class="my-3"></mat-divider>
+      <div class=" row mt-5" style="margin-top: 100px !important;">
+          <mat-divider class="my-3"></mat-divider>
+        
+        <span> <h1 class="most_text" style="justify-content: center;text-align: center;font-weight: 600px;"> <div>
+          <a href="">
+            Below You Can see Blog Posts
+          </a>
+        </div></h1></span>  
+      </div>
+      <div class="row">
+        <div>
+          <h1 class="most_text" style="font-weight: 900px;"> <a style="justify-content: center;" class="btn btn-primary" routerLink="/postform">Click Here to Add Post</a></h1>
+          
+
+        </div>
+        <mat-divider class="my-3"></mat-divider>
+        <div class="col-md-8">
+            <mat-accordion class="example-headers-align p-0  m-0" multi *ngFor="let post of filteredPosts$ | async" class="post-item fade-in">
+              <mat-expansion-panel style="margin-bottom: 10px;">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                      {{ post.title }}
+                  </mat-panel-title>
+                  <mat-panel-description style="justify-content: right;text-align: right;">
+                    
+                    <mat-icon>account_circle</mat-icon>
+                  </mat-panel-description>
+                  
+                </mat-expansion-panel-header>
+                <div >
+                  <mat-card class="post-card">
+                    <mat-card-header>
+                      <div mat-card-avatar class="avatar"></div>
+                      <mat-card-title>{{ post.title }}</mat-card-title>
+                      <mat-card-subtitle>{{ post.category }} | {{ post.date | date:'mediumDate' }}</mat-card-subtitle>
+                    </mat-card-header>
+                    <!-- Use dynamic image URL from the post object -->
+                    <img mat-card-image *ngIf="post.imageUrl" [src]="post.imageUrl" alt="{{ post.title }}" />
+                    <mat-card-content>
+                      <p>{{ post.content }}</p>
+                    </mat-card-content>
+                    <mat-card-actions>
+                      <button mat-button color="primary" (click)="editPost(post)">Edit</button>
+                      <button mat-button color="warn" (click)="deletePost(post.id)">Delete</button>
+                    </mat-card-actions>
+                  </mat-card>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            
+          
+        </div>
+    
+        <!-- Search and Filter -->
+        <div class="col-md-4">
+          <mat-card class="filter-card">
+            <mat-card-header>
+              <mat-card-title>Filters</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <!-- Search Filter -->
+              <mat-form-field class="full-width">
+                <mat-label>Search Posts</mat-label>
+                <input matInput placeholder="Search by title or content" [(ngModel)]="searchText" />
+              </mat-form-field>
+              <button mat-raised-button color="primary" class="full-width" (click)="applyFilters()">
+                Search
+              </button>
+    
+              <!-- Category Filter -->
+              <mat-divider class="my-3"></mat-divider>
+              <h5>Categories</h5>
+              <div *ngFor="let category of categories">
+                <mat-checkbox [(ngModel)]="selectedCategories[category]" (change)="applyFilters()">
+                  {{ category }}
+                </mat-checkbox>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
